@@ -1,0 +1,1006 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+:root {
+  --primary-color: #116ACC;
+  --secondary-color-1: #182233;
+  --secondary-color-2: #B3CEE2;
+  --secondary-color-3: #D9DDE7;
+  --socondery-color-4: #FD4E5D;
+  --info-color: #A0C3FF;
+  --success-color: #76CA66;
+  --warning-color: #FBC756;
+  --error-color: #BA0000;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../assets/fonts/WorkSansRegular.woff2') format('woff2'),
+    url('../assets/fonts/WorkSansRegular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../assets/fonts/WorkSansBold.woff2') format('woff2'),
+    url('../assets/fonts/WorkSansBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../assets/fonts/WorkSansSemiBold.woff2') format('woff2'),
+    url('../assets/fonts/WorkSansSemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../assets/fonts/WorkSansLight.woff2') format('woff2'),
+    url('../assets/fonts/WorkSansLight.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../assets/fonts/WorkSansMedium.woff2') format('woff2'),
+    url('../assets/fonts/WorkSansMedium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../assets/fonts/UbuntuRegular.woff2') format('woff2'),
+    url('../assets/fonts/UbuntuRegular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../assets/fonts/UbuntuMedium.woff2') format('woff2'),
+    url('../assets/fonts/UbuntuMedium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/RobotoMedium.woff2') format('woff2'),
+    url('../assets/fonts/RobotoMedium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  min-width: 320px;
+  font-family: 'Work Sans', 'Ubuntu', 'Roboto', sans-serif;
+  background-color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 50px;
+  max-width: 1330px;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+  color: #000000;
+}
+
+.subtitle {
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000000;
+}
+
+.btn {
+  padding: 15px 20px;
+  border-color: transparent;
+  border-radius: 7px;
+  background-color: var(--primary-color);
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFF;
+  cursor: pointer;
+  transition: background-color .3s ease-in-out, color .3s ease-in-out;
+}
+
+.btn path {
+  stroke: #000;
+}
+
+.btn:hover {
+  background-color: var(--info-color);
+  color: #4b4545;
+}
+
+.back-btn {
+  padding: 15px 25px;
+  padding-left: 60px;
+  background-color: var(--primary-color);
+  border-color: transparent;
+  border-radius: 7px;
+  background-image: url('../assets/img/back.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 25px center;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFF;
+}
+
+
+/* header */
+
+
+.header {
+  /* position: fixed;
+  width: 100%; */
+  background-color: var(--primary-color);
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
+}
+
+.header__title {
+  margin: 0;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 56px;
+  color: #FFFFFF;
+}
+
+.nav__btn {
+  padding: 15px 25px;
+  border: 2px solid var(--primary-color);
+  border-radius: 7px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #116ACC;
+  transition: background-color .3s ease-in-out;
+}
+
+.nav__btn:not(:last-child) {
+  margin-right: 25px;
+}
+
+.nav__btn:hover {
+  background-color: var(--secondary-color-2);
+}
+
+
+/* login */
+
+.login {
+  position: fixed;
+  top: calc(50% - 150px);
+  left: calc(50% - 175px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 40px;
+  /* width: 400px; */
+  border-radius: 15px;
+  background-color: #F3F4F6;
+}
+
+.login__title {
+  margin: 0;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+  color: #000000;
+  text-align: center;
+}
+
+.login__input-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.login__input {
+  margin: 0 25px;
+  padding: 10px 15px;
+  background-color: #FFF;
+  border: 1px solid #9CA3AF;
+  border-radius: 7px;
+}
+
+.login__placeholder {
+  position: absolute;
+  top: 7px;
+  left: 40px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #6B7280;
+  pointer-events: none;
+  transition: transform .3s ease-in-out, top .3s ease-in-out;
+  transform-origin: left;
+}
+
+.login__input:focus + .login__placeholder {
+  top: -20px;
+  transform: scale(.8);
+}
+
+.login__input:not(:placeholder-shown) + .login__placeholder {
+  top: -20px;
+  transform: scale(.8);
+}
+
+.login__error, .password__error {
+  display: none;
+  position: absolute;
+  top: -32px;
+  left: 25px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 22px;
+  color: var(--error-color);
+}
+
+.error__message {
+  position: absolute;
+  top: 85px;
+  left: 65px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 22px;
+  color: var(--error-color);
+}
+
+.error__show {
+  display: block;
+}
+
+.login__btn {
+  padding: 15px 20px;
+  border-color: transparent;
+  border-radius: 7px;
+  background-color: var(--primary-color);
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #FFF;
+}
+
+
+/* accounts */
+
+.accounts {
+  padding: 50px 0;
+}
+
+.accounts__top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.accounts__menu {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.section__title {
+  margin: 0;
+  margin-right: 35px;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+  color: #000000;
+}
+
+.accounts__sort-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+.accounts__sort {
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid var(--primary-color);
+  border-radius: 7px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #374151;
+}
+
+.accounts__sort::after {
+  content: '';
+  position: absolute;
+  right: 15px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top: 5px solid black;
+  transition: transform .3s ease-in-out, top .3s ease-in-out;
+}
+
+.accounts__sort--active::after {
+  top: 15px;
+  transform: rotate(180deg)
+}
+
+.accounts__sort--active + .accounts__dropdown {
+  display: block;
+}
+
+.accounts__dropdown {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 46px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-color: transparent;
+  border-radius: 7px;
+  background-color: #fff;
+  filter: drop-shadow(0px 5px 20px rgba(0, 0, 0, 0.25));
+  list-style: none;
+}
+
+.dropdown__item {
+  position: relative;
+  padding: 15px;
+  transition: background-color .3s ease-in-out;
+  cursor: pointer;
+}
+
+.dropdown__item--checked::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 18px;
+  height: 14px;
+  background-image: url('../assets/img/check.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.dropdown__item:hover {
+  background-color: var(--info-color);
+}
+
+/* .dropdown__link {
+  position: relative;
+  display: inline-block;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+.dropdown__link--checked::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 18px;
+  height: 14px;
+  background-image: url('../assets/img/check.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.dropdown__link:hover {
+  background-color: var(--info-color);
+} */
+
+.accounts__btn {
+  padding: 15px 25px;
+  padding-left: 60px;
+  background-color: var(--primary-color);
+  border-color: transparent;
+  border-radius: 7px;
+  background-image: url('../assets/img/plus.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 25px center;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFF;
+}
+
+.accounts__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.accounts__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  padding: 20px;
+  width: calc((100% - 140px) / 3);
+  background-color: #FFF;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
+}
+
+.accounts__item:not(:nth-child(3n)) {
+  margin-right: 70px;
+}
+
+.accounts__item:nth-last-child(-n + 3) {
+  margin-bottom: 0;
+}
+
+.item__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.item__account {
+  margin-bottom: 10px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #182233;
+}
+
+.item__sum {
+  margin-bottom: 30px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #182233;
+}
+
+.item__transaction {
+  width: 150px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 15px;
+  color: #000000;
+}
+
+
+
+/* info */
+
+.info {
+  padding: 50px 0;
+}
+
+.info__top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.info__account-number {
+  margin-top: 30px;
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 40px;
+  color: #000;
+}
+
+.info__right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 220px;
+}
+
+.info__balance {
+  margin-right: 30px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000;
+}
+
+.info__balance-value {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000;
+}
+
+.info__main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info__transaction {
+  display: inline-block;
+  margin-right: 50px;
+  padding: 25px 50px;
+  width: calc((100% - 50px) / 2);
+  background-color: #F3F4F6;
+  border-radius: 50px;
+}
+
+.transaction__descr {
+  display: inline-block;
+  width: 40%;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #182233;
+  text-align: right;
+}
+
+.transaction__input {
+  margin: 25px 0 0 12px;
+  padding: 10px 15px;
+  width: calc(60% - 18px);
+  border: 1px solid #9CA3AF;
+  border-radius: 7px;
+}
+
+.transaction__btn {
+  margin-top: 25px;
+  margin-left: calc(50% - 80px);
+  padding-left: 60px;
+  width: 160px;
+  background-image: url('../assets/img/send.svg');
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  background-position: 25px center;
+}
+
+.info__dynamics {
+  display: inline-block;
+  padding: 25px 120px 25px 50px;
+  width: calc((100% - 50px) / 2);
+  background-color: #FFF;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.info__dynamics--history {
+  margin-bottom: 50px;
+  width: 100%;
+  height: 280px;
+}
+
+.dynamics__graph {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  margin-top: 25px;
+  /* height: 100%; */
+  background: #FFF;
+  border: 1px solid #000;
+  height: calc(100% - 75px);
+}
+
+.dynamics__block {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 10%;
+  height: 100%;
+}
+
+.info__dynamics--history .dynamics__block {
+  width: 5%;
+}
+
+.dynamics__max {
+  position: absolute;
+  right: -100px;
+  top: 0;
+  text-align: left;
+}
+
+.dynamics__min {
+  position: absolute;
+  right: -100px;
+  bottom: 0;
+  text-align: left;
+}
+
+.dynamics__scale {
+  width: 100%;
+  background-color: var(--primary-color);
+}
+
+.dynamics__month {
+  content: 'month';
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+}
+
+.info__history {
+  margin-top: 50px;
+  padding: 25px 50px 70px;
+  background-color: #F3F4F6;
+  border-radius: 56px;
+  cursor: pointer;
+}
+
+.history__table {
+  margin-top: 25px;
+}
+
+.table__head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: var(--primary-color);
+  border-radius: 15px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #FFF;
+}
+
+.table__row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 50px;
+  border-bottom: 1px solid rgba(0, 82, 255, 0.1);
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #374151;
+}
+
+.table__cell {
+  margin-right: 40px;
+  width: calc(25% - 40px);
+}
+
+.table__cell--positive {
+  color: var(--success-color);
+}
+
+.table__cell--negative {
+  color: var(--error-color);
+}
+
+
+/* currency */
+
+.currency {
+  padding: 50px;
+}
+
+.currency__wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.currency__operations {
+  margin-right: 50px;
+  width: 50%;
+}
+
+.currency__exchange {
+  margin-bottom: 50px;
+  padding: 50px;
+  background-color: #FFF;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
+
+.currency__exchange:last-child {
+  margin-bottom: 0;
+}
+
+.currency__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.currency__item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.currency__item:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.currency__code {
+  margin-right: 10px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000;
+}
+
+.currency__border {
+  width: 100%;
+  border-bottom: 1px dashed #000;
+}
+
+.exchange__form {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.exchange__error {
+  display: none;
+  position: absolute;
+  right: 100px;
+  top: -46px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 22px;
+  color: var(--error-color);
+}
+
+.exchange__error--active {
+  display: block;
+}
+
+.exchange__left {
+  margin-right: 25px;
+  width: 75%;
+}
+
+.exchange__currency {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.exchange__descr {
+  margin-right: 8px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000;
+}
+
+.exchange__dropdown-wrapper {
+  position: relative;
+}
+
+.exchange__dropdown, .exchange__amount-input {
+  padding: 10px 15px;
+  border: 1px solid #9CA3AF;
+  border-radius: 7px;
+}
+
+.exchange__dropdown {
+  position: relative;
+  padding-right: 40px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000;
+  cursor: pointer;
+}
+
+.exchange__dropdown::after {
+  content: '';
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom: 5px solid black;
+  transition: transform .3s ease-in-out, top .3s ease-in-out;
+}
+
+.dropdown__currency-list--active + .exchange__dropdown::after {
+  top: 20px;
+  transform: rotate(180deg);
+}
+
+.dropdown__currency-list {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  bottom: 44px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border: 1px solid #9CA3AF;
+  border-radius: 7px;
+  list-style: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.dropdown__currency-list--active {
+  display: block;
+}
+
+.dropdown__currency-item {
+  position: relative;
+  padding: 5px 10px;
+  transition: backgroung-color .3s ease-in-out;
+}
+
+.dropdown__currency-item:hover {
+  background-color: var(--info-color); 
+}
+
+.dropdown__currency-item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.dropdown__currency-item--checked {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.exchange__amount {
+  display: flex;
+  align-items: center;
+}
+
+.currency__amount {
+  padding-right: 30px;
+  background-position: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  margin-left: 10px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000;
+}
+
+.currency__rates {
+  flex-shrink: 1;
+  padding: 50px;
+  width: 50%;
+  max-height: 1200px;
+  background-color: #E5E5E5;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.currency__subtitle {
+  margin: 0;
+  margin-bottom: 25px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000;
+}
+
+.currency__feed {
+  height: 90%;
+  overflow: hidden;
+}
+
+.currency__feed .currency__item:not(:first-child) {
+  margin-bottom: 30px;
+}
+
+.currency__amount--up {
+  background-image: url('../assets/img/currencyUp.svg');
+}
+
+.currency__amount--down {
+  background-image: url('../assets/img/currencyDown.svg');
+}
+
+
+/* map */
+
+.map {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.map-wrapper {
+  margin-top: 50px;
+  width: 100%;
+  height: 600px;
+}
