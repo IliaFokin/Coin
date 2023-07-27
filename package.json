@@ -21,6 +21,7 @@
     "webpack-dev-server": "^4.15.0"
   },
   "dependencies": {
+    "@tarekraafat/autocomplete.js": "^10.2.7",
     "navigo": "^8.11.1",
     "redom": "^3.29.1",
     "ymaps": "^0.2.1"

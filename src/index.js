@@ -137,6 +137,11 @@ async function sortAccountList(prop) {
   renderPage(renderAccountsPage(accountListSorted, prop));
 }
 
+newAccountBtn.addEventListener('click', () => {
+  createAccount(token);
+  router.navigate('/accounts');
+})
+
 
 // account-details 
 
