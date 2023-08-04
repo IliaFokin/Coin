@@ -1,8 +1,8 @@
 import { el } from "redom";
 
-export const loginInput = el('input.login__input', { type: 'text', placeholder: ' '});
+export const loginInput = el('input.login__input#login-input', { type: 'text', placeholder: ' '});
 export const loginError = el('label.login__error', 'Неверный логин');
-export const passwordInput = el('input.login__input', { type: 'password', placeholder: ' '});
+export const passwordInput = el('input.login__input#password-input', { type: 'password', placeholder: ' '});
 export const passwordError = el('label.password__error', 'Неправильный пароль');
 export const errorMessage = el('.error__message');
 export const loginForm = el('form.login', [

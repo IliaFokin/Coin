@@ -1,4 +1,4 @@
-import { el, setChildren } from "redom";
+import { el } from "redom";
 import { router } from '../index.js'
 
 function getDate(date) {

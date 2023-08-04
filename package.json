@@ -12,6 +12,7 @@
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^5.0.0",
+    "cypress": "^12.17.2",
     "html-webpack-plugin": "^5.5.1",
     "mini-css-extract-plugin": "^2.7.5",
     "source-map-loader": "^4.0.1",
@@ -21,7 +22,7 @@
     "webpack-dev-server": "^4.15.0"
   },
   "dependencies": {
-    "@tarekraafat/autocomplete.js": "^10.2.7",
+    "minisearch": "^6.1.0",
     "navigo": "^8.11.1",
     "redom": "^3.29.1",
     "ymaps": "^0.2.1"

@@ -24,33 +24,22 @@ import { renderMap } from './js/map.js';
 export const router = new Navigo('/');
 let token = 0;
 const main = el('main.main');
-setChildren(window.document.body, [header, main]);
+const message = el('.message__message', '');
+const messageBtn = el('button.btn', 'Понятно');
+const messageWindow = el('.message', [
+  el('.message__wrapper', [
+    message,
+    messageBtn
+  ])
+]);
 
+messageBtn.addEventListener('click', () => {
+  messageWindow.classList.remove('message--active');
+  window.document.body.classList.add('body--stop-scroll');
+})
 
-(async () => {
-  // export const socket = await currencyFeed();
-  // const socket = await currencyFeed();
-  // console.log(socket);
-  // socket.addEventListener('message', (message) => {
-  //   if (JSON.parse(message.data).from === 'BTC') console.log(JSON.parse(message.data));
-  //   console.log(JSON.parse(message.data).from);
-  // })
+setChildren(window.document.body, [header, messageWindow, main]);
 
-  // const test = await transferFunds('74213041477477406320783754', '25812101014840716720083771', 2000, 'ZGV2ZWxvcGVyOnNraWxsYm94');
-  // console.log(test);
-
-  // const test = await allCurrencies();
-  // console.log(test);
-
-  // const test2 = await currencies('ZGV2ZWxvcGVyOnNraWxsYm94');
-  // console.log(test2);
-  // router.navigate('/');
-
-  // const link = document.createElement('link');
-  // link.rel = 'stylesheet';
-  // link.href = 'custom-select.css';
-  // link.addEventListener('load', () => resolve());
-})();
 
 
 function renderPage(func) {
@@ -63,34 +52,40 @@ function renderPage(func) {
 
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  token = 'ZGV2ZWxvcGVyOnNraWxsYm94';
-  router.navigate('/accounts');
 
-  // if (loginInput.value.trim().length >= 6 && passwordInput.value.trim().length >= 6) {
-    
-  //   const response = await authentication(loginInput.value, passwordInput.value);
-    
-  //   if (response.payload) {
-  //     token = response.payload.token;
-  //     router.navigate('/accounts');
-  //     loginInput.value = '';
-  //     loginError.classList.remove('error__show');
-  //     passwordError.classList.remove('error__show');
-  //     errorMessage.textContent = '';
-  //   } else {
-  //     if (response.error === 'No such user') {
-  //       loginInput.value = '';
-  //       loginError.classList.add('error__show');
-  //     }
-  //     else {
-  //       passwordInput.value = '';
-  //       passwordError.classList.add('error__show');
-  //     }
-  //   }
-  // } else {
-  //   errorMessage.textContent = 'Некорректный логин/пароль';
-  // }
-  // passwordInput.value = '';
+
+
+  // token = 'ZGV2ZWxvcGVyOnNraWxsYm94';
+  // router.navigate('/accounts');
+
+
+
+
+if (loginInput.value.trim().length >= 6 && passwordInput.value.trim().length >= 6) {
+  
+  const response = await authentication(loginInput.value, passwordInput.value);
+  
+  if (response.payload) {
+    token = response.payload.token;
+    router.navigate('/accounts');
+    loginInput.value = '';
+    loginError.classList.remove('error__show');
+    passwordError.classList.remove('error__show');
+    errorMessage.textContent = '';
+  } else {
+    if (response.error === 'No such user') {
+      loginInput.value = '';
+      loginError.classList.add('error__show');
+    }
+    else {
+      passwordInput.value = '';
+      passwordError.classList.add('error__show');
+    }
+  }
+} else {
+  errorMessage.textContent = 'Некорректный логин/пароль';
+}
+passwordInput.value = '';
 });
 
 
@@ -137,17 +132,19 @@ async function sortAccountList(prop) {
   renderPage(renderAccountsPage(accountListSorted, prop));
 }
 
-newAccountBtn.addEventListener('click', () => {
-  createAccount(token);
-  router.navigate('/accounts');
+newAccountBtn.addEventListener('click', async () => {
+  const response = await createAccount(token);
+  messageWindow.classList.add('message--active');
+  window.document.body.classList.add('body--stop-scroll');
+  if(response.error === '') {
+    message.textContent = `Счет ${response.payload.account} успешно создан`;
+    const accountList = await accounts(token).then(res => res.payload);
+    renderPage(renderAccountsPage(accountList));
+  } else {
+    message.textContent = `При создании счета произошла ошибка :(`
+  }
 })
 
-
-// account-details 
-
-// backBtn.addEventListener('click', () => {
-//   router.navigate('/accounts');
-// })
 
 
 
@@ -175,7 +172,12 @@ router.on('currency', async () => {
 })
 
 router.on('/currency/:from/:to/:amount', async ({ data: { from, to, amount } }) => {
-  await currencyBuy(from, to, amount, token).then(router.navigate('/currency'));
+  const response = await currencyBuy(from, to, amount, token).then();
+  messageWindow.classList.add('message--active');
+  window.document.body.classList.add('body--stop-scroll');
+  if (response.error === '') message.textContent = 'Обмен валют прошел успешно';
+  else message.textContent = 'При обмене валют произошла ошибка';
+  router.navigate('/currency');
 })
 
 router.on('/accounts', async () => {
@@ -210,7 +212,11 @@ router.on('/accounts/:id/history', async ({ data: {id} }) => {
 });
 
 router.on('/accounts/:id/transfer', async ({ data: {id} }) => {
-  transferFunds(id, transactionAccountInput.value, transactionAmountInput.value, token);
+  const response = await transferFunds(id, transactionAccountInput.value, transactionAmountInput.value, token);
+  messageWindow.classList.add('message--active');
+  window.document.body.classList.add('body--stop-scroll');
+  if (response.error === '') message.textContent = 'Перевод средств прошел успешно';
+  else message.textContent = 'Ошибка при переводе средств';
   transactionAccountInput.value = '';
   transactionAmountInput.value = '';
   router.navigate(`/accounts/${id}`);

@@ -1,8 +1,6 @@
-import { el, setChildren } from "redom";
+import { el } from "redom";
 import { router } from '../index.js';
-import autoComplete from "@tarekraafat/autocomplete.js";
 import MiniSearch from 'minisearch';
-import accessibleAutocomplete from 'accessible-autocomplete';
 
 const monthArr = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 const currentDate = new Date;
@@ -10,21 +8,7 @@ const currentDate = new Date;
 export const transactionAccountInput = el('input.transaction__input.autocomplete-example-container');
 export const transactionAmountInput = el('input.transaction__input');
 
-// const autoCompleteJS = new autoComplete({ 
-//   placeHolder: "Search for Food...",
-//     data: {
-//         src: ["Sauce - Thousand Island", "Wild Boar - Tenderloin", "Goat - Whole Cut"]
-//     },
-//     resultItem: {
-//         highlight: true,
-//     }
-// });
 
-const list = [
-  'Item 1',
-  'Item 2',
-  'Item 3',
-]
 
 function createDynamicsTable(account, barAmount = 6) {
   let monthBalance;
@@ -67,24 +51,18 @@ function createDynamicsTable(account, barAmount = 6) {
     monthBalance[i + 1] = ((Math.floor(monthBalance[i + 1] * 100)) / 100);
   }
 
-  console.log(monthBalance);
-  console.log(monthIncome);
-  console.log(monthOutcome);
 
   const maxMonthBalance = Math.max(...monthBalance);
-  const minMonthBalance = Math.min(...monthBalance);
   const maxMonthOutcome = Math.max(...monthOutcome);
 
   const graph = el('.dynamics__graph', [
     el('.dynamics__max', `${maxMonthBalance}`),
-    // el('.dynamics__min', `${minMonthBalance}`),
     el('.dynamics__min', 0),
   ]);
 
   const ratioGraph = el('.dynamics__graph', [
     el('.dynamics__max', `${maxMonthBalance}`),
     el('.dynamics__ratio', `${maxMonthOutcome}`),
-    // el('.dynamics__min', `${minMonthBalance}`),
     el('.dynamics__min', 0),
   ]);
 
@@ -101,7 +79,6 @@ function createDynamicsTable(account, barAmount = 6) {
     graph.append(block);
 
     const ratio = Math.floor(monthOutcome[i] / (monthIncome[i] + monthOutcome[i]) * 100);
-    console.log(`month: ${monthArr[blockMonth]}: ${ratio}`);
 
     const ratioBlock = el('.dynamics__block', [
       el('.dynamics__scale', {style: `height: ${100 * monthBalance[i] / maxMonthBalance}%`}, [
@@ -140,7 +117,6 @@ function createDynamicsTable(account, barAmount = 6) {
 }
 
 export function renderAccountDetailsPage(account, type = 'overview') {
-  console.log(account);
 
   const backBtn = el('button.btn.back-btn.info-btn', 'Вернуться назад');
 
@@ -152,33 +128,59 @@ export function renderAccountDetailsPage(account, type = 'overview') {
   const title = el('h2.title', 'Просмотр счёта');
   if ( type === 'history') title.textContent = 'История баланса';
 
+  const transactionSuggestion = el('.transaction__suggestion');
+
   const transactionForm =  el('form.info__transaction', [
     el('h3.subtitle', 'Новый перевод'),
     el('.transaction__descr', 'Номер счета получателя'),
-    transactionAccountInput,
-    // el('label', {for: `autocomplete-example`}, 'Select an item'),
-    // el('#autocomplete-example-container'),
+    el('.transaction__wrapper', [
+      transactionAccountInput,
+      transactionSuggestion,
+    ]),
     el('.transaction__descr', 'Сумма перевода'),
-    transactionAmountInput,
+    el('.transaction__wrapper', transactionAmountInput),
     el('button.btn.transaction__btn', 'Отправить')
   ]);
 
-  // accessibleAutocomplete({
-  //   // container element
-  //   element: document.querySelector('#autocomplete-example-container'),
-  //   // input id
-  //   id: 'autocomplete-example',
-  //   // data source
-  //   source: list
-  // })
-  // // use select box
-  // accessibleAutocomplete.enhanceSelectElement({
-  //   selectElement: document.querySelector('#list')
-  // })
+
+  // localStorage.clear();
+
+  let localHistory = JSON.parse(localStorage.getItem('transactionHistory'));
+  if (localHistory === null) localHistory = [];
+  let documents = [];
+  localHistory.forEach(entry => {
+    documents.push({ id: documents.length, account: entry })
+  });
+  let miniSearch = new MiniSearch({
+      fields: ['account'],
+      storeFields: ['account']
+    })
+    
+  miniSearch.addAll(documents);
+  
+  transactionAccountInput.addEventListener('keyup', () => {
+    transactionSuggestion.innerHTML = '';
+    transactionSuggestion.classList.remove('transaction__suggestion--active');
+    const suggest = miniSearch.autoSuggest(transactionAccountInput.value.trim());
+    suggest.forEach(suggestion => {
+      const suggestionLine = el('.suggestion__line', suggestion.suggestion);
+      suggestionLine.addEventListener('click', () => {
+        transactionAccountInput.value = suggestionLine.textContent;
+        transactionSuggestion.innerHTML = '';
+        transactionSuggestion.classList.remove('transaction__suggestion--active');
+      })
+      transactionSuggestion.append(suggestionLine);
+      transactionSuggestion.classList.add('transaction__suggestion--active');
+    })
+  })
 
   transactionForm.addEventListener('submit', (e) => {
     e.preventDefault();
     if (transactionAccountInput.value.trim() !== '' && transactionAmountInput.value.trim() !== '') {
+      if (!localHistory.includes(transactionAccountInput.value.trim())) {
+        localHistory.push(transactionAccountInput.value.trim());
+        localStorage.setItem('transactionHistory', JSON.stringify(localHistory));
+      }
       router.navigate(`accounts/${account.account}/transfer`);
     }
   })
@@ -240,7 +242,7 @@ export function renderAccountDetailsPage(account, type = 'overview') {
   } else {
     infoMain = el('div', [
       infoDynamics,
-      ratioTable
+      // ratioTable
     ]);
   }
 
